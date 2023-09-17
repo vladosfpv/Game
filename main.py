@@ -2,7 +2,7 @@ from Player import *
 from Rocket import *
 from Functions import *
 
-connection = sqlite3.connect("db.db")
+connection = sqlite3.connect(".gitignore/db.db")
 cursor = connection.cursor()
 
 # Создаем игру и окно
@@ -12,6 +12,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("game")
 clock = pygame.time.Clock()
 score = 0
+create_db()
 
 
 def start_the_game():

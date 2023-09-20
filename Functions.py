@@ -12,7 +12,7 @@ def draw_text(surf, text, size, x, y):
 
 
 def add_player(name):
-    connection = sqlite3.connect(".gitignore/db.db")
+    connection = sqlite3.connect("db.db")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM scores;")
     users = cursor.fetchall()
@@ -27,7 +27,7 @@ def add_player(name):
 
 
 def set_score(name, score):
-    connection = sqlite3.connect(".gitignore/db.db")
+    connection = sqlite3.connect("db.db")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM scores;")
     users = cursor.fetchall()
@@ -45,7 +45,7 @@ def set_score(name, score):
 def get_top_users():
     top_users = []
     top_user = ["", 0]
-    connection = sqlite3.connect(".gitignore/db.db")
+    connection = sqlite3.connect("db.db")
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM scores;")
     users = cursor.fetchall()
@@ -65,18 +65,12 @@ def get_top_users():
 
 
 def create_db():
-    connection = sqlite3.connect('.gitignore/db.db')
+    connection = sqlite3.connect('db.db')
     cursor = connection.cursor()
     listoftables = cursor.execute(''' SELECT count(name) FROM sqlite_master
     WHERE type='table' AND name='scores' ''').fetchall()
 
     if listoftables == [(0,)]:
         cursor.execute('''CREATE TABLE IF NOT EXISTS scores (player TEXT, score INT)''')
-        players = [('Player1', 500),
-                   ('Player2', 250),
-                   ('Player3', 400),
-                   ('Player4', 500),
-                   ('Player5', 100)]
-        cursor.executemany("INSERT INTO scores VALUES (?, ?)", players)
     connection.commit()
     connection.close()

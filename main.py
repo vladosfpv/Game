@@ -45,6 +45,7 @@ def start_the_game():
                 rocket = Rocket(random.randint(0, WIDTH), HEIGHT)
             rockets.add(rocket)
             time1 = time.time()
+
         # Держим цикл на правильной скорости
         clock.tick(FPS)
 
@@ -76,30 +77,7 @@ def start_the_game():
             alive = False
             score = int(time_score * 100)
             set_score(name, score)
-            top_players = get_top_users()
-            # for top_player in top_players:
-            #     label = menu.add.label(f"{top_player[0]} : {top_player[1]}")
-            #     table.add_row(label)
-            if len(top_players) == 1:
-                label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-            elif len(top_players) == 2:
-                label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-                label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-            elif len(top_players) == 3:
-                label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-                label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-                label3.set_title(f"{top_players[2][0]} : {top_players[2][1]}")
-            elif len(top_players) == 4:
-                label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-                label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-                label3.set_title(f"{top_players[2][0]} : {top_players[2][1]}")
-                label4.set_title(f"{top_players[3][0]} : {top_players[3][1]}")
-            elif len(top_players) == 5:
-                label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-                label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-                label3.set_title(f"{top_players[2][0]} : {top_players[2][1]}")
-                label4.set_title(f"{top_players[3][0]} : {top_players[3][1]}")
-                label5.set_title(f"{top_players[4][0]} : {top_players[4][1]}")
+            table_update(table)
 
         # Рендеринг
         screen.fill(BLACK)
@@ -121,41 +99,12 @@ lbl = menu.add.label("Your task is to avoid asteroids, don't let them kill you!"
 lbl.resize(WIDTH - 400, 35)
 top_lbl = menu.add.label("Top 5:")
 top_lbl.resize(WIDTH - 750, 30)
-table = menu.add.table()
 
-# for top_player in top_players:
-#     label = menu.add.label(f"{top_player[0]} : {top_player[1]}")
-#     table.add_row(label)
-label1 = menu.add.label("1st place")
-label2 = menu.add.label("2nd place")
-label3 = menu.add.label("3rd place")
-label4 = menu.add.label("4th place")
-label5 = menu.add.label("5th place")
-table.add_row(label1)
-table.add_row(label2)
-table.add_row(label3)
-table.add_row(label4)
-table.add_row(label5)
-if len(top_players) == 1:
-    label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-elif len(top_players) == 2:
-    label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-    label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-elif len(top_players) == 3:
-    label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-    label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-    label3.set_title(f"{top_players[2][0]} : {top_players[2][1]}")
-elif len(top_players) == 4:
-    label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-    label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-    label3.set_title(f"{top_players[2][0]} : {top_players[2][1]}")
-    label4.set_title(f"{top_players[3][0]} : {top_players[3][1]}")
-elif len(top_players) == 5:
-    label1.set_title(f"{top_players[0][0]} : {top_players[0][1]}")
-    label2.set_title(f"{top_players[1][0]} : {top_players[1][1]}")
-    label3.set_title(f"{top_players[2][0]} : {top_players[2][1]}")
-    label4.set_title(f"{top_players[3][0]} : {top_players[3][1]}")
-    label5.set_title(f"{top_players[4][0]} : {top_players[4][1]}")
+table = menu.add.table()
+for i in range(1, 6):
+    label = menu.add.label(f"{i} place")
+    table.add_row(label)
+table_update(table)
 
 t_input = menu.add.text_input('Name :', default='Player')
 img = menu.add.image("images/rrr.png")

@@ -43,25 +43,13 @@ def set_score(name, score):
 
 
 def get_top_users():
-    top_users = []
-    top_user = ["", 0]
     connection = sqlite3.connect("db.db")
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM scores;")
+    cursor.execute("SELECT * FROM scores ORDER BY score DESC LIMIT 5")
     users = cursor.fetchall()
-    if len(users) >= 5:
-        for i in range(5):
-            for user in users:
-                if user[1] >= top_user[1]:
-                    top_user = user
-            top_users.append(top_user)
-            users.remove(top_user)
-            top_user = ["", 0]
-    else:
-        top_users = users
     connection.commit()
     connection.close()
-    return top_users
+    return users
 
 
 def create_db():
@@ -69,8 +57,17 @@ def create_db():
     cursor = connection.cursor()
     listoftables = cursor.execute(''' SELECT count(name) FROM sqlite_master
     WHERE type='table' AND name='scores' ''').fetchall()
-
     if listoftables == [(0,)]:
         cursor.execute('''CREATE TABLE IF NOT EXISTS scores (player TEXT, score INT)''')
     connection.commit()
     connection.close()
+
+
+def table_update(table):
+    i = 0
+    top_players = get_top_users()
+    for widget in table.get_widgets():
+        widget.set_title(f"{top_players[i][0]} : {top_players[i][1]}")
+        i += 1
+        if len(top_players) == i:
+            break

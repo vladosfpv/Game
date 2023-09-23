@@ -14,11 +14,11 @@ class Player(pygame.sprite.Sprite):
     def update(self, left, right, up, down):
         if left and self.rect.x > 0:
             self.rect.x -= 3
-        if right and self.rect.x < WIDTH-30:
+        if right and self.rect.x < WIDTH - 30:
             self.rect.x += 3
         if up and self.rect.y > 0:
             self.rect.y -= 3
-        if down and self.rect.y < HEIGHT-30:
+        if down and self.rect.y < HEIGHT - 30:
             self.rect.y += 3
 
     def draw(self, screen):

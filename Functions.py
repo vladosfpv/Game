@@ -66,6 +66,8 @@ def create_db():
 def table_update(table):
     i = 0
     top_players = get_top_users()
+    if not top_players:
+        return 0
     for widget in table.get_widgets():
         widget.set_title(f"{top_players[i][0]} : {top_players[i][1]}")
         i += 1
